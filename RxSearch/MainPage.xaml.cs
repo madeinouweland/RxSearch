@@ -20,7 +20,8 @@ namespace RxSearch
 
             textchanges
                 .Throttle(TimeSpan.FromMilliseconds(300)) // result on threadpool 
-                .SelectMany(api.Search)
+                .Select(api.Search)
+                .Switch()
                 .ObserveOnDispatcher() // send back to dispatcher
                 .Subscribe(OnSearchResult);
 
